@@ -179,9 +179,9 @@ export const resumeSchema = z.object({
   borderStyle: optionalString,
 });
 
-export type ResumeValues = Omit<z.infer<typeof resumeSchema>, "photo"> & {
+export type ResumeValues = z.infer<typeof resumeSchema> & {
+  photo?: File | string | null;
   id?: string;
-  Phone?: File | string | null;
 };
 
 export const generateWorkExperienceSchema = z.object({

@@ -202,8 +202,8 @@ function WorkExperienceSection({ resumeData }: ResumeSectionProps) {
               <span className="text-[16px]">{exp.position}</span>
               {exp.startDate && (
                 <span>
-                  {formatDate(exp.startDate, "MM,yyyy")} -{" "}
-                  {exp.endDate ? formatDate(exp.endDate, "MM,yyyy") : "Present"}
+                  {formatDate(exp.startDate)} -{" "}
+                  {exp.endDate ? formatDate(exp.endDate) : "Present"}
                 </span>
               )}
             </div>
@@ -301,11 +301,11 @@ function EducationSection({ resumeData }: ResumeSectionProps) {
               {edu.startDate && (
                 <span className="text-sm font-bold">
                   {edu.endDate && !edu.startDate
-                    ? formatDate(edu.endDate, "MM,yyyy")
+                    ? formatDate(edu.endDate)
                     : edu.startDate && edu.endDate
-                      ? `${formatDate(edu.startDate, "MM,yyyy")} -   ${formatDate(edu.endDate, "MM,yyyy")}`
+                      ? `${formatDate(edu.startDate)} -   ${formatDate(edu.endDate)}`
                       : edu.startDate
-                        ? `${formatDate(edu.startDate, "MM,yyyy")} - Present`
+                        ? `${formatDate(edu.startDate)} - Present`
                         : ""}
                 </span>
               )}

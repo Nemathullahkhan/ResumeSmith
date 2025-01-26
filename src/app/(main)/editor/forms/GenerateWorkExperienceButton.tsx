@@ -117,9 +117,8 @@ function InputDialog({
                 <FormItem>
                   <FormLabel>Description</FormLabel>
                   <FormControl>
-                    <Textarea className="max-w-full overflow-auto"
+                    <Textarea className="max-w-full overflow-auto h-36 w-full resize-none overflow-auto p-2 "
                       {...field}
-                      className="h-36 w-full resize-none overflow-auto p-2 "
                       placeholder={`E.g.: "Describe the role of [Job Position] at [Company Name], including key responsibilities, achievements, and growth opportunities. Provide dates and write professionally."`}
                         
                       autoFocus

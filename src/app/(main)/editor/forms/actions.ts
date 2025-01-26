@@ -14,7 +14,7 @@ import { Projects, WorkExperience } from "@prisma/client";
 export async function generateSummary(input: GenerateSummaryInput) {
   // Todo:Block for non-premium users
 
-  const { jobTitle, workExperiences, educations, skills } =
+  const { jobTitle, workExperiences, educations, skillSet} =
     generateSummarySchema.parse(input);
 
   const systemMessage = `
@@ -48,7 +48,12 @@ export async function generateSummary(input: GenerateSummaryInput) {
       .join("\n\n")}
 
       Skills:
-      ${skills}
+      ${skillSet?.map((skill) => `
+        Languages: ${skill.languages || "N/A"}
+        Frameworks: ${skill.frameworks || "N/A"}
+        Tools: ${skill.tools || "N/A"}
+        Libraries: ${skill.libraries || "N/A"}
+      `).join('\n\n')}
     `;
   console.log("systemMessage:", systemMessage);
   console.log("userMessage:", userMessage);
@@ -87,9 +92,14 @@ export async function generateWorkExperience(
 
     Job title: <job title>
     Company: <company name>
+    Company Location: <location>
     Start date: <format: YYYY--MM--DD (only if provided)
     End date: <format: YYYY--MM--DD (only if provided)
-    Description: <an optimized description in bullet format, might be infered from the job title>
+    Description: <an optimized description in bullet format, might be infered from the job title
+     • X: Describe the context or challenge faced
+     • Y: Explain the actions taken and your role
+     • Z: Quantify the results and impact achieved
+    >
     `;
   const userMessage = `
     Please provide a work experience entry from this description:
@@ -118,12 +128,13 @@ export async function generateWorkExperience(
   console.log("aiResponse: ", aiResponse);
 
   return {
-    position: aiResponse.match(/Job title: (.*)/)?.[1] || "",
-    company: aiResponse.match(/Company: (.*)/)?.[1] || "",
+    position: aiResponse.match(/Job title: (.*)/)?.[1] || undefined,
+    company: aiResponse.match(/Company: (.*)/)?.[1] || undefined,
+    companyLocation: aiResponse.match(/Company Location: (.*?)(?:\n|$)/)?.[1]?.trim() || undefined,
     description: (aiResponse.match(/Description:([\s\S]*)/)?.[1] || "").trim(),
-    startDate: aiResponse.match(/Start date: (\d{4}-\d{2}-\d{2})/)?.[1],
-    endDate: aiResponse.match(/End date: (\d{4}-\d{2}-\d{2})/)?.[1],
-  } satisfies WorkExperience;
+    startDate: aiResponse.match(/Start date: (\d{4}-\d{2}-\d{2})/)?.[1] || undefined,
+    endDate: aiResponse.match(/End date: (\d{4}-\d{2}-\d{2})/)?.[1] || undefined,
+  };
 }
 
 export async function generateProject(input: GenerateProjectInput) {
@@ -135,7 +146,12 @@ You can omit fields if they can't be infered from the provide data,but don't add
 Project Name: <Project name>
 Project Link: <Project Link>
 TechStack: <Technologies used for the creation of project>
-Description: < an optimized description in bullet format (with the symbol of bullet point),might be infered from the project name>`;
+Link: <Link to the project>
+Description: < an optimized description in bullet format (with the symbol of bullet point),might be infered from the project name
+• X: Describe the project challenge or objective
+• Y: Explain the technical implementation and your role
+• Z: Quantify the impact or results achieved
+>`;
 
   const userMessage = `Please provide a project entry from this description:
 ${description}`;
@@ -171,9 +187,6 @@ ${description}`;
     techStack: aiResponse.match(/TechStack: (.*)/)?.[1] || "",
     description: (aiResponse.match(/Description:([\s\S]*)/)?.[1] || "").trim(),
   } satisfies Projects;
-
-
-
 }
 
 

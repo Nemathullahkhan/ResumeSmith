@@ -23,7 +23,7 @@ export function mapToResumeValues(data: ResumeServerData): ResumeValues {
     id: data.id,
     title: data.title || undefined,
     description: data.description || undefined,
-    photo: data.photoUrl || undefined,
+    photo: data.photoUrl ? new File([data.photoUrl], 'photo') : undefined,
     firstName: data.firstName || undefined,
     lastName: data.lastName || undefined,
     city: data.city || undefined,
@@ -64,11 +64,6 @@ export function mapToResumeValues(data: ResumeServerData): ResumeValues {
       course:val.course || undefined,
       learningPlatform: val.learningPlatform || undefined,
       courseLink:val.courseLink || undefined,
-      description:val.description || undefined,
-    })),
-    contests: data.contests.map((val)=>({
-      contest: val.contest|| undefined,
-      contestStanding: val.contestStanding||undefined,
       description:val.description || undefined,
     })),
     codingProfiles: data.codingProfiles.map((val)=>({
