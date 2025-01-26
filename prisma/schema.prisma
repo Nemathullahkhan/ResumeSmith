@@ -37,7 +37,6 @@ model Resume {
 
   workExperiences WorkExperience[]
   educations      Education[]
-  skills          String[]
   skillSet        SkillSet[]
   projects        Projects[]
   courses         Courses[]
