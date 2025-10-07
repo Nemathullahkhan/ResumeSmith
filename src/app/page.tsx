@@ -3,11 +3,10 @@
 import type React from "react";
 import { type RefObject, useRef, forwardRef, useState } from "react";
 import { motion, easeInOut } from "framer-motion";
-import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import image from "@/assets/jakes-resume-1.png";
-import ClerkLogo from "@/assets/ClerkLogo.svg";
-import ClerkAuthSignInInterface from "@/assets/ClerkAuthSignin.png";
+import image from "../assets/jakes-resume-1.png";
+import ClerkLogo from "../assets/ClerkLogo.svg";
+import ClerkAuthSignInInterface from "../assets/ClerkAuthSignin.png";
 import Link from "next/link";
 import {
   Box,
@@ -24,6 +23,7 @@ import { Input } from "@/components/ui/input";
 import blankPage from "@/assets/blankpage-1.png";
 import landinpage1 from "@/assets/landing page -1-1.png";
 import landingPage2 from "@/assets/landing page2-1.png";
+import { Button } from "@/components/ui/button";
 
 const Page = () => {
   const featureRef = useRef<HTMLElement>(null);
