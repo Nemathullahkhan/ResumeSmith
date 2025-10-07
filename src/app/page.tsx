@@ -6,7 +6,7 @@ import { motion, easeInOut } from "framer-motion";
 import Image from "next/image";
 import image from "@/assets/jakes-resume-1.png";
 import ClerkLogo from "@/assets/ClerkLogo.svg";
-import ClerkAuthSignInInterface from "@/assets/ClerkAuthSignin.png";
+import ClerkAuthSignInInterface from "@/assets/ClerkAuthSignIn.png";
 import Link from "next/link";
 import {
   Box,
