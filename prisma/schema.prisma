@@ -1,29 +1,20 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
 
-// prisma/schema.prisma
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
 model Resume {
-  id     String @id @default(cuid())
-  userId String
-
-  title       String?
-  description String?
-
+  id              String           @id @default(cuid())
+  userId          String
+  title           String?
+  description     String?
   photoUrl        String?
-  colorHex        String  @default("#000000")
-  borderStyle     String  @default("squircle")
+  colorHex        String           @default("#000000")
+  borderStyle     String           @default("squircle")
   summary         String?
   firstName       String?
   lastName        String?
@@ -34,19 +25,16 @@ model Resume {
   email           String?
   githubProfile   String?
   linkedinProfile String?
-
-  workExperiences WorkExperience[]
-  educations      Education[]
-  skillSet        SkillSet[]
-  projects        Projects[]
-  courses         Courses[]
-  contests        Contests[]
-  codingProfiles  CodingProfile[]
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
   custom          Custom[]
-
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  codingProfiles  CodingProfile[]
+  contests        Contests[]
+  courses         Courses[]
+  educations      Education[]
+  projects        Projects[]
+  skillSet        SkillSet[]
+  workExperiences WorkExperience[]
 
   @@map("resumes")
 }
@@ -59,120 +47,108 @@ model WorkExperience {
   startDate       DateTime?
   endDate         DateTime?
   description     String?
-
-  resumeId String
-  resume   Resume @relation(fields: [resumeId], references: [id], onDelete: Cascade)
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  resumeId        String
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  resume          Resume    @relation(fields: [resumeId], references: [id], onDelete: Cascade)
 
   @@map("work_experiences")
 }
 
 model Projects {
-  id          String  @id @default(cuid())
+  id          String   @id @default(cuid())
   projectName String?
   link        String?
   techStack   String?
   description String?
-
-  resumeId String
-  resume   Resume @relation(fields: [resumeId], references: [id], onDelete: Cascade)
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  resumeId    String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  resume      Resume   @relation(fields: [resumeId], references: [id], onDelete: Cascade)
 
   @@map("projects")
 }
 
 model Education {
-  id String @id @default(cuid())
-
+  id        String    @id @default(cuid())
   degree    String?
   school    String?
   cgpa      String?
   startDate DateTime?
   endDate   DateTime?
-
-  resumeId String
-  resume   Resume @relation(fields: [resumeId], references: [id], onDelete: Cascade)
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  resumeId  String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  resume    Resume    @relation(fields: [resumeId], references: [id], onDelete: Cascade)
 
   @@map("educations")
 }
 
 model SkillSet {
-  id         String    @id @default(cuid())
+  id         String   @id @default(cuid())
   languages  String?
   frameworks String?
   tools      String?
   libraries  String?
-  
-  resumeId String
-  resume   Resume @relation(fields: [resumeId], references: [id], onDelete: Cascade)
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  resumeId   String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  databases  String?
+  deployment String?
+  resume     Resume   @relation(fields: [resumeId], references: [id], onDelete: Cascade)
 
   @@map("skillSet")
 }
 
+model Courses {
+  id               String   @id @default(cuid())
+  course           String?
+  courseLink       String?
+  resumeId         String
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  description      String?
+  learningPlatform String?
+  resume           Resume   @relation(fields: [resumeId], references: [id], onDelete: Cascade)
 
-model Courses{
-  id String @id @default(cuid())
-  course String?
-  learningPlatform String? 
-  courseLink String?
-  description String?
-  resumeId String
-  resume Resume @relation(fields: [resumeId],references: [id], onDelete: Cascade)
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
   @@map("custom_courses")
 }
 
 model Contests {
-  id String @id @default(cuid())
-   contest String?
+  id              String   @id @default(cuid())
+  contest         String?
   contestStanding String?
-  description String?
+  resumeId        String
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  description     String?
+  resume          Resume   @relation(fields: [resumeId], references: [id], onDelete: Cascade)
 
-  resumeId String
-  resume Resume @relation(fields: [resumeId],references: [id], onDelete: Cascade)
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
   @@map("custom_contests")
 }
 
 model CodingProfile {
-  id String @id @default(cuid())
-  codingProfile String?
+  id                String   @id @default(cuid())
+  codingProfile     String?
   codingProfileLink String?
-  description String?
-  resumeId String
-  resume Resume @relation(fields: [resumeId],references: [id], onDelete: Cascade)
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  resumeId          String
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  description       String?
+  resume            Resume   @relation(fields: [resumeId], references: [id], onDelete: Cascade)
 
   @@map("custom_codingProfiles")
-
 }
+
 model Custom {
-  id String @id @default(cuid())
-  heading String?
+  id          String   @id @default(cuid())
+  heading     String?
   description String?
-  link String?
-
-  resumeId String
-  resume Resume @relation(fields: [resumeId],references: [id], onDelete: Cascade)
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  link        String?
+  resumeId    String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  resume      Resume   @relation(fields: [resumeId], references: [id], onDelete: Cascade)
 
   @@map("custom")
 }

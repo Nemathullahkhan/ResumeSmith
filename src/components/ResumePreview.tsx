@@ -6,8 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { formatDate } from "@/lib/dateUtils";
 import { Badge } from "./ui/badge";
 import { BorderStyles } from "@/app/(main)/editor/BorderStyleButton";
-import { Github, Heading, Linkedin } from "lucide-react";
-
+import { Github, Heading, Linkedin, Mail } from "lucide-react";
 
 interface ResumePreviewProps {
   resumeData: ResumeValues;
@@ -49,7 +48,7 @@ export default function ResumePreview({
         <SkillSet resumeData={resumeData} />
         <CustomSection resumeData={resumeData} />
         <CodingProfileSection resumeData={resumeData} />
-        <CoursesSection resumeData = {resumeData} />
+        <CoursesSection resumeData={resumeData} />
 
         {/* <SkillsSection resumeData={resumeData} /> */}
       </div>
@@ -86,8 +85,97 @@ function PersonalInfoHeader({ resumeData }: ResumeSectionProps) {
     return () => URL.revokeObjectURL(objectUrl);
   }, [photo]);
 
+  // return (
+  //   <div className="mb-5 flex items-center gap-6 font-['Computer_Modern']">
+  //     {photoSrc && (
+  //       <Image
+  //         src={photoSrc}
+  //         width={100}
+  //         height={100}
+  //         alt="Author photo"
+  //         className="aspect-square object-cover"
+  //         style={{
+  //           borderRadius:
+  //             borderStyle === BorderStyles.SQUARE
+  //               ? "0px"
+  //               : borderStyle === BorderStyles.CIRCLE
+  //                 ? "9999px"
+  //                 : "10%",
+  //         }}
+  //       />
+  //     )}
+  //     <div className="mx-auto space-y-0.5 text-center font-semibold">
+  //       <div>
+  //         <h1
+  //           className="text-3xl font-bold tracking-tight"
+  //           style={{ color: colorHex }}
+  //         >
+  //           {firstName} {lastName}
+  //         </h1>
+  //         <p className="text-xl font-semibold">{jobTitle}</p>
+  //       </div>
+  //       <p className="text-black-500 flex flex-wrap items-center justify-center gap-2 text-xs font-light tracking-wide">
+  //         {city}
+  //         {city && country ? " | " : ""}
+  //         {country}
+  //         {(city || country) && (phone || email) ? " | " : ""}
+  //         {phone}
+  //         {(phone || country) && email ? " |" : ""}
+  //         {email && (
+  //           <a
+  //             href={`https://mail.google.com/mail/?view=cm&fs=1&to=${email}`}
+  //             className="-mx-1 flex gap-0.5 hover:text-black"
+  //           >
+  //             <Mail size={14} />
+  //             {email}
+  //           </a>
+  //         )}
+  //         {(phone || email) && githubProfile ? " | " : ""}
+  //         {githubProfile && (
+  //           <>
+  //             <a
+  //               href={githubProfile}
+  //               target="_blank"
+  //               rel="noopener noreferrer"
+  //               className="-mx-1 flex gap-0.5 hover:text-black"
+  //             >
+  //               <Github size={14} />
+  //               <span className="flex items-center">
+  //                 {githubProfile.replace(/^https?:\/\//, "")}
+  //               </span>
+  //             </a>
+  //           </>
+  //         )}
+  //         {(email && githubProfile) && linkedinProfile ? "" : " | "}
+  //         {linkedinProfile &&
+  //           linkedinProfile
+  //             .split(/[\s,]+/)
+  //             .filter(Boolean)
+  //             .map((url, idx) => {
+  //               // Extract profile name from URL
+  //               const profileName =
+  //                 url.replace(/\/+$/, "").split("/").pop() || "";
+  //               return (
+  //                 <a
+  //                   key={idx}
+  //                   href={url}
+  //                   target="_blank"
+  //                   rel="noopener noreferrer"
+  //                   className="-mx-1 flex gap-0.5 hover:text-blue-400"
+  //                 >
+  //                   <Linkedin size={14} />
+  //                   <span className="items-center">{`.linkedin.com/${profileName}`}</span>
+  //                 </a>
+  //               );
+  //             })}
+  //       </p>
+  //       <p className="text-black-500 flex flex-wrap items-center justify-center gap-2 text-xs font-light tracking-wide"></p>
+  //     </div>
+  //   </div>
+  // );
+
   return (
-    <div className="mb-5 flex items-center gap-6 font-['Computer_Modern']">
+    <div className="mb-3 flex items-center gap-6 font-['Computer_Modern']">
       {photoSrc && (
         <Image
           src={photoSrc}
@@ -105,7 +193,7 @@ function PersonalInfoHeader({ resumeData }: ResumeSectionProps) {
           }}
         />
       )}
-      <div className="mx-auto space-y-0.5 text-center font-semibold">
+      <div className="flex-1 text-center font-semibold">
         <div>
           <h1
             className="text-3xl font-bold tracking-tight"
@@ -115,48 +203,66 @@ function PersonalInfoHeader({ resumeData }: ResumeSectionProps) {
           </h1>
           <p className="text-xl font-semibold">{jobTitle}</p>
         </div>
-        <p className="text-black-500 flex items-center justify-center gap-2 text-xs font-light tracking-wide">
-          {city}
-          {city && country ? " | " : ""}
-          {country}
-          {(city || country) && (phone || email) ? " | " : ""}
-          {phone}
-          {(phone || country) && email ? " |" : ""}
+        <span className="text-black-500 flex flex-wrap items-center justify-center gap-1 px-[0.8px] text-sm font-light tracking-wide">
+          {city} | {country} | {phone} |
           {email && (
             <a
               href={`https://mail.google.com/mail/?view=cm&fs=1&to=${email}`}
-              className="flex gap-0.5 -mx-1 hover:text-black"
+              className="flex items-center gap-1 hover:text-black"
             >
-              <span className="items-center font-bold ">Email:</span>
+              <Mail size={10} />
               {email}
             </a>
           )}
-          {(phone || email) && githubProfile ? " | " : ""}
-
           {githubProfile && (
-            <a
-              href={githubProfile}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex gap-0.5 -mx-1 hover:text-black"
-            >
-              <span className="items-center font-bold">Github:</span>
-              <Github size={14} />
-            </a>
+            <>
+              |{" "}
+              <a
+                href={githubProfile}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1 hover:text-black"
+              >
+                <Github size={10} fill="black" />
+                <span>
+                  github.com/
+                  <span>{githubProfile.split("/").pop()}</span>
+                </span>
+              </a>
+            </>
           )}
-          {(email || githubProfile) && linkedinProfile ? " | " : ""}
-          {linkedinProfile && (
-            <a
-              href={linkedinProfile}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex gap-0.5 -mx-1 hover:text-blue-400"
-            >
-              <span className="items-center font-bold">LinkedIn: </span>
-              <Linkedin size={14} />
-            </a>
-          )}
-        </p>
+          {linkedinProfile &&
+            linkedinProfile
+              .split(/[\s,]+/)
+              .filter(Boolean)
+              .map((url, idx) => {
+                const profileName =
+                  url.replace(/\/+$/, "").split("/").pop() || "";
+                return (
+                  <>
+                    |{" "}
+                    <a
+                      key={idx}
+                      href={url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-1"
+                    >
+                      <span className="bg-blue-500 p-[2px]">
+                        <Linkedin
+                          size={10}
+                          style={{ fill: "white", stroke: "none" }}
+                        />
+                      </span>
+                      <span>
+                        linkedin.com/
+                        <span>{profileName}</span>
+                      </span>
+                    </a>
+                  </>
+                );
+              })}
+        </span>
       </div>
     </div>
   );
@@ -168,12 +274,17 @@ function SummarySection({ resumeData }: ResumeSectionProps) {
   return (
     <>
       <div className="-mb-3 break-inside-avoid space-y-1.5 font-['Computer_Modern']">
-        <div className="text-md -mb-2.5 flex tracking-wider"
-         style={{ color: colorHex }}>
+        <div
+          className="text-md -mb-2.5 flex tracking-wider"
+          style={{ color: colorHex }}
+        >
           P
           <span className="mt-1 items-center text-xs">ROFESSIONAL PROFILE</span>
         </div>
-        <div className="-mb-3 h-[1px] w-full bg-black"  style={{ background: colorHex }}/>
+        <div
+          className="-mb-3 h-[1px] w-full bg-black"
+          style={{ background: colorHex }}
+        />
         <p className="-mt-1 ml-2 whitespace-pre-line text-sm">{summary}</p>
       </div>
     </>
@@ -192,10 +303,16 @@ function WorkExperienceSection({ resumeData }: ResumeSectionProps) {
   return (
     <>
       <div className="-mt-4 break-inside-avoid space-y-2 font-['Computer_Modern']">
-        <div className="text-md -mb-2.5 flex tracking-wider"style={{ color: colorHex }} >
+        <div
+          className="text-md -mb-2.5 flex tracking-wider"
+          style={{ color: colorHex }}
+        >
           E <span className="mt-1 items-center text-xs">XPERIENCE</span>
         </div>
-        <div className="-mb-3 h-[1px] w-full bg-black" style={{ background: colorHex }} />
+        <div
+          className="-mb-3 h-[1px] w-full bg-black"
+          style={{ background: colorHex }}
+        />
         {workExperiencesNotEmpty.map((exp, index) => (
           <div key={index} className="break-inside-avoid">
             <div className="-mt-1.5 flex items-center justify-between pl-3 pr-2 text-sm font-semibold">
@@ -216,7 +333,7 @@ function WorkExperienceSection({ resumeData }: ResumeSectionProps) {
               )}
             </div>
             {/* <p className="pl-2.5  m-0.5 text-xs font-semibold italic ">{exp.company}</p> */}
-            <div className="-mt-1 mb-2.5 whitespace-pre-wrap pl-6 pr-5 text-sm">
+            <div className="m-0.5 -mt-1 whitespace-pre-line pl-6 pr-5 text-sm">
               {exp.description}
             </div>
           </div>
@@ -243,7 +360,10 @@ function ProjectSection({ resumeData }: ResumeSectionProps) {
       >
         P <span className="mt-1 items-center text-xs">ROJECTS</span>
       </div>
-      <div className="-mb-3 h-[1px] w-full bg-black"style={{ background: colorHex }} />
+      <div
+        className="-mb-3 h-[1px] w-full bg-black"
+        style={{ background: colorHex }}
+      />
       {projectsNotEmpty.map((proj, index) => (
         <div key={index} className="break-inside-avoid">
           <div className="-mt-1.5 flex items-center justify-between pl-3 pr-2 font-semibold">
@@ -289,11 +409,16 @@ function EducationSection({ resumeData }: ResumeSectionProps) {
   return (
     <>
       <div className="-mb-3 break-inside-avoid space-y-1.5 font-['Computer_Modern']">
-        <div className="text-md -mb-2.5 flex tracking-wider"  style={{ color: colorHex }}>
+        <div
+          className="text-md -mb-2.5 flex tracking-wider"
+          style={{ color: colorHex }}
+        >
           E <span className="mt-1 items-center text-xs">DUCATION</span>
         </div>
-        <div className="-mb-3 h-[1px] w-full bg-black "
-        style={{ background: colorHex }} />
+        <div
+          className="-mb-3 h-[1px] w-full bg-black"
+          style={{ background: colorHex }}
+        />
         {educationNotEmpty.map((edu, index) => (
           <div key={index} className="break-inside-avoid">
             <div className="-mt-1.5 flex items-center justify-between pl-3 pr-2 font-semibold">
@@ -331,9 +456,8 @@ function EducationSection({ resumeData }: ResumeSectionProps) {
   );
 }
 
-
 function SkillSet({ resumeData }: ResumeSectionProps) {
-  const { skillSet,colorHex } = resumeData;
+  const { skillSet, colorHex } = resumeData;
   const skillNotEmpty = skillSet?.filter(
     (skill) => Object.values(skill).filter(Boolean).length > 0,
   );
@@ -343,10 +467,16 @@ function SkillSet({ resumeData }: ResumeSectionProps) {
   return (
     <>
       <div className="-mb-3 break-inside-avoid space-y-1.5 font-['Computer_Modern']">
-        <div className="text-md -mb-2.5 flex tracking-wide"style={{ color: colorHex }}>
+        <div
+          className="text-md -mb-2.5 flex tracking-wide"
+          style={{ color: colorHex }}
+        >
           T <span className="mt-1 items-center text-xs">ECHNICAL SKILLS</span>
         </div>
-        <div className="-mb-3 h-[1px] w-full bg-black" style={{ background: colorHex }} />
+        <div
+          className="-mb-3 h-[1px] w-full bg-black"
+          style={{ background: colorHex }}
+        />
         {skillNotEmpty.map((skill, index) => (
           <div key={index} className="break-inside-avoid">
             <div className="-mt-1.5 flex flex-col pl-3.5 pr-2">
@@ -361,6 +491,14 @@ function SkillSet({ resumeData }: ResumeSectionProps) {
                   Frameworks:
                   <span className="ml-2 text-sm font-normal tracking-wide">
                     {skill.frameworks}
+                  </span>
+                </div>
+              )}
+              {skill.databases && (
+                <div className="-mt-1.5 flex items-center text-[16px] font-semibold">
+                  Databases:
+                  <span className="ml-2 text-sm font-normal tracking-wide">
+                    {skill.databases}
                   </span>
                 </div>
               )}
@@ -380,6 +518,14 @@ function SkillSet({ resumeData }: ResumeSectionProps) {
                   </span>
                 </div>
               )}
+              {skill.deployment && (
+                <div className="-mt-1.5 flex items-center text-[16px] font-semibold">
+                  Deployment:
+                  <span className="ml-2 text-sm font-normal tracking-wide">
+                    {skill.deployment}
+                  </span>
+                </div>
+              )}
             </div>
           </div>
         ))}
@@ -389,7 +535,7 @@ function SkillSet({ resumeData }: ResumeSectionProps) {
 }
 
 function CustomSection({ resumeData }: ResumeSectionProps) {
-  const { custom,colorHex } = resumeData;
+  const { custom, colorHex } = resumeData;
 
   const customNotEmpty = custom?.filter(
     (val) => Object.values(val).filter(Boolean).length > 0,
@@ -404,14 +550,20 @@ function CustomSection({ resumeData }: ResumeSectionProps) {
           key={index}
           className="-mt-3 break-inside-avoid space-y-1.5 font-['Computer_Modern']"
         >
-          <div className="-mb-3 flex text-[16px]  tracking-wider uppercase"style={{ color: colorHex }}>
+          <div
+            className="-mb-3 flex text-[16px] uppercase tracking-wider"
+            style={{ color: colorHex }}
+          >
             {val.heading?.charAt(0)}
-            <span className="mt-1 items-center text-xs ">
+            <span className="mt-1 items-center text-xs">
               {val.heading?.slice(1)}
             </span>
           </div>
-          <div className="-mb-3 h-[1px] w-full bg-black" style={{ background: colorHex }}/>
-          <p className="m-0.5 -mt-1.5 overflow-hidden whitespace-pre-line break-words pl-6 pr-5 text-sm">   
+          <div
+            className="-mb-3 h-[1px] w-full bg-black"
+            style={{ background: colorHex }}
+          />
+          <p className="m-0.5 -mt-1.5 overflow-hidden whitespace-pre-line break-words pl-6 pr-5 text-sm">
             {val.description}
           </p>
         </div>
@@ -437,7 +589,10 @@ function CodingProfileSection({ resumeData }: ResumeSectionProps) {
       >
         C <span className="mt-1 items-center text-xs">ODING PROFILES</span>
       </div>
-      <div className="-mb-3 h-[1px] w-full bg-black" style={{ background: colorHex }}/>
+      <div
+        className="-mb-3 h-[1px] w-full bg-black"
+        style={{ background: colorHex }}
+      />
 
       {codingProfilesNotEmpty.map((prof, index) => (
         <div key={index} className="break-inside-avoid">
@@ -485,7 +640,10 @@ function CoursesSection({ resumeData }: ResumeSectionProps) {
       >
         C <span className="mt-1 items-center text-xs">ERTIFICATIONS</span>
       </div>
-      <div className="-mb-3 h-[1px] w-full bg-black"style={{ background: colorHex }} />
+      <div
+        className="-mb-3 h-[1px] w-full bg-black"
+        style={{ background: colorHex }}
+      />
 
       {coursesNotEmpty.map((course, index) => (
         <div key={index} className="break-inside-avoid">
@@ -493,9 +651,11 @@ function CoursesSection({ resumeData }: ResumeSectionProps) {
             <span className="text-black-500 flex items-center justify-center px-1 text-[16px]">
               {course.course}
             </span>
-            {course.course && course.learningPlatform ?" | ":""}
+            {course.course && course.learningPlatform ? " | " : ""}
             {course.learningPlatform && (
-              <span className="items-center px-1 text-sm   tracking-wide underline-offset-auto">{course.learningPlatform}</span>
+              <span className="items-center px-1 text-sm tracking-wide underline-offset-auto">
+                {course.learningPlatform}
+              </span>
             )}
             {course.course && course.courseLink ? "  | " : ""}
             {course.courseLink && (

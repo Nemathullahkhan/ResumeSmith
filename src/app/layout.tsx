@@ -14,11 +14,11 @@ export const metadata: Metadata = {
   description: "Your own personalised Resume builder powered with AI (gpt-4)",
   icons: {
     icon: [
-      { url: '/favicon.ico' },
-      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
-      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+      { url: "/favicon.ico" },
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
     ],
-  }
+  },
 };
 
 export default function RootLayout({
@@ -30,14 +30,14 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en" suppressHydrationWarning>
         <body className={`${inter.className} mx-2`}>
-          <ThemeProvider 
-          attribute="class"
-          defaultTheme="system"
-          enableSystem 
-          disableTransitionOnChange
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
           >
             {children}
-            <Toaster/>
+            <Toaster />
           </ThemeProvider>
         </body>
       </html>

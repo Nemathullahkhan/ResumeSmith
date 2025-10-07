@@ -51,6 +51,7 @@ export async function generateSummary(input: GenerateSummaryInput) {
       ${skillSet?.map((skill) => `
         Languages: ${skill.languages || "N/A"}
         Frameworks: ${skill.frameworks || "N/A"}
+        databases: ${skill.databases || "N/A"}
         Tools: ${skill.tools || "N/A"}
         Libraries: ${skill.libraries || "N/A"}
       `).join('\n\n')}

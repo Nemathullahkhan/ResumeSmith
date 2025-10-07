@@ -77,6 +77,13 @@ body {
   body {
     @apply bg-background text-foreground;
   }
+  .grid-background {
+    background-image:
+    linear-gradient(to top, rgba(50, 49, 49, 0.3) 2.5px, transparent 1px),
+      linear-gradient(to right, rgba(48, 48, 48, 0.3) 1.5px, transparent 1px);
+      background-size: 64px 72px ;
+    position: relative;
+  }
 }
 /* Add to your global CSS file */
 .scrollbar-custom {
@@ -138,7 +145,5 @@ body {
     user-select: text !important;
   }
 }
-
-
 
 

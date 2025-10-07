@@ -1,8 +1,7 @@
 "use client";
 
-import type React from "react";
-import { type RefObject, useRef, forwardRef, useState } from "react";
-import { motion, easeInOut } from "framer-motion";
+import React, { RefObject, useRef, forwardRef, useState } from "react";
+import { motion, easeInOut } from "motion/react";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import image from "@/assets/jakes-resume-1.png";
@@ -39,7 +38,7 @@ const Page = () => {
   };
 
   return (
-    <div className="flex min-h-screen w-full flex-col items-center space-y-32 overflow-x-hidden bg-black text-neutral-100">
+    <div className="flex min-h-screen w-full flex-col items-center space-y-32">
       <div className="z-50">
         <HomeNavbar
           scrollToSection={scrollToSection}
@@ -61,13 +60,13 @@ const Page = () => {
 
         <section
           aria-labelledby="contact-title"
-          className="w-full"
+          className="w-full "
           ref={contactRef}
         >
-          <div className="mx-auto w-full max-w-5xl px-6 py-16 tracking-tight md:py-24">
-            <div className="rounded-lg border border-neutral-800 bg-neutral-900 text-neutral-200 shadow-sm">
-              <div className="border-b border-neutral-800 px-6 py-4 md:px-8 md:py-6">
-                <span className="inline-block rounded-md bg-neutral-800 px-2 py-1 text-xs font-medium text-neutral-200">
+          <div className="mx-auto w-full max-w-5xl px-6 py-16 tracking-tight md:py-24 ">
+            <div className="rounded-lg border bg-card text-card-foreground shadow-sm bg-neutral-900">
+              <div className="border-b px-6 py-4 md:px-8 md:py-6">
+                <span className="inline-block rounded-md bg-secondary px-2 py-1 text-xs font-medium text-secondary-foreground">
                   Contact
                 </span>
                 <h2
@@ -76,7 +75,7 @@ const Page = () => {
                 >
                   We&apos;d love to hear from you
                 </h2>
-                <p className="mt-2 text-pretty text-sm leading-relaxed text-neutral-400 md:text-base">
+                <p className="mt-2 text-pretty text-sm leading-relaxed text-muted-foreground md:text-base">
                   Questions, feedback, or ideas—reach out and we&apos;ll get
                   back as soon as possible.
                 </p>
@@ -88,14 +87,14 @@ const Page = () => {
                     <h3 className="text-lg font-medium md:text-xl">
                       Email support
                     </h3>
-                    <p className="mt-2 text-pretty text-sm leading-relaxed text-neutral-400 md:text-base">
+                    <p className="mt-2 text-pretty text-sm leading-relaxed text-muted-foreground md:text-base">
                       Prefer email? Send us a message and we&apos;ll help you
                       craft impactful resumes together.
                     </p>
                     <p className="mt-2 text-pretty text-sm md:text-base">
                       <Link
                         href="mailto:resumesmithweb@gmail.com"
-                        className="font-medium text-neutral-100 underline-offset-4 hover:text-neutral-200 hover:underline"
+                        className="font-medium text-primary underline-offset-4 hover:underline"
                       >
                         resumesmithweb@gmail.com
                       </Link>
@@ -104,11 +103,11 @@ const Page = () => {
                   <div className="pt-1">
                     <a
                       href="mailto:resumesmithweb@gmail.com"
-                      className="inline-flex w-full items-center justify-center rounded-md border border-neutral-700 bg-neutral-900 px-4 py-1 text-sm font-semibold text-neutral-100 transition hover:bg-neutral-800 md:w-auto md:px-5 md:text-base"
+                      className="inline-flex w-full items-center justify-center rounded-md bg-primary px-4  text-sm font-semibold text-primary-foreground transition hover:bg-primary/90 md:w-auto md:px-5 py-1 md:text-base"
                     >
                       Reach out via email
                     </a>
-                    <p className="mt-3 text-xs leading-relaxed text-neutral-400 md:text-sm">
+                    <p className="mt-3 text-xs leading-relaxed text-muted-foreground md:text-sm">
                       Typical response time: under 24 hours.
                     </p>
                   </div>
@@ -116,11 +115,11 @@ const Page = () => {
               </div>
             </div>
 
-            <p className="mt-6 text-center text-xs text-neutral-400 md:text-sm">
+            <p className="mt-6 text-center text-xs text-muted-foreground md:text-sm">
               Or email us directly at{" "}
               <Link
                 href="mailto:resumesmithweb@gmail.com"
-                className="font-medium text-neutral-100 underline-offset-4 hover:text-neutral-200 hover:underline"
+                className="font-medium text-primary underline-offset-4 hover:underline"
               >
                 resumesmithweb@gmail.com
               </Link>
@@ -128,7 +127,10 @@ const Page = () => {
           </div>
         </section>
 
-        <section className="w-full"></section>
+        <section className="w-full">
+
+
+        </section>
       </div>
     </div>
   );
@@ -146,7 +148,7 @@ interface HomeNavbarProps {
 
 const HomeNavbar: React.FC<HomeNavbarProps> = ({ scrollToSection, refs }) => {
   return (
-    <nav className="fixed left-0 top-0 w-full bg-black shadow-sm">
+    <nav className="fixed left-0 top-0 w-full shadow-sm dark:bg-black">
       <div className="mx-auto flex max-w-5xl items-center justify-between gap-3 bg-black p-3">
         <Link href="/" className="flex items-center gap-2">
           <Gavel />
@@ -157,42 +159,40 @@ const HomeNavbar: React.FC<HomeNavbarProps> = ({ scrollToSection, refs }) => {
         <div className="flex items-center gap-2">
           <Button
             variant="ghost"
-            className="rounded-lg p-2 px-2.5 text-[13px] text-zinc-400 hover:bg-zinc-800 hover:text-zinc-100 max-md:text-xs"
+            className="rounded-lg p-2 px-2.5 text-[13px] text-zinc-400 hover:text-zinc-100 max-md:text-xs"
             onClick={() => scrollToSection(refs.featureRef)}
           >
             Features
           </Button>
           <Button
             variant="ghost"
-            className="rounded-lg p-2 px-2.5 text-[13px] text-zinc-400 hover:bg-zinc-800 hover:text-zinc-100 max-md:text-xs"
+            className="rounded-lg p-2 px-2.5 text-[13px] text-zinc-400 hover:text-zinc-100 max-md:text-xs"
             onClick={() => scrollToSection(refs.processRef)}
           >
             Process
           </Button>
           <Button
             variant="ghost"
-            className="rounded-lg p-2 px-2.5 text-[13px] text-zinc-400 hover:bg-zinc-800 hover:text-zinc-100 max-md:text-xs"
+            className="rounded-lg p-2 px-2.5 text-[13px] text-zinc-400 hover:text-zinc-100 max-md:text-xs"
             onClick={() => scrollToSection(refs.howItWorksRef)}
           >
             How It Works
           </Button>
           <Button
             variant="ghost"
-            className="rounded-lg p-2 px-2.5 text-[13px] text-zinc-400 hover:bg-zinc-800 hover:text-zinc-100 max-md:text-xs"
+            className="rounded-lg p-2 px-2.5 text-[13px] text-zinc-400 hover:text-zinc-100 max-md:text-xs"
             onClick={() => scrollToSection(refs.contactRef)}
           >
             Contact
           </Button>
         </div>
         <div className="flex items-center gap-2">
-          <Link href="/sign-in">
-            <Button
-              variant="default"
-              className="h-8 rounded-lg border border-neutral-700 bg-neutral-200 text-[13px] font-[550] text-neutral-800 hover:bg-neutral-50 max-md:text-xs"
-            >
-              Log in
-            </Button>
-          </Link>
+          <Button
+            variant="default"
+            className="h-8 rounded-lg bg-zinc-200 text-[13px] text-zinc-800 max-md:text-xs"
+          >
+            Log in
+          </Button>
         </div>
       </div>
     </nav>
@@ -258,7 +258,7 @@ const HeroSection = () => {
         animate="visible"
         className={`space-y-6`}
       >
-        <div className="pr-0 md:pr-52">
+        <div className="pr-52">
           {words.map((word, i) => (
             <motion.span
               key={i}
@@ -285,7 +285,7 @@ const HeroSection = () => {
           </motion.p>
           <Link href="/resumes">
             <div className="pt-2">
-              <Button className="rounded-lg border border-neutral-700 bg-neutral-200 py-5 text-base text-neutral-800 hover:bg-neutral-50">
+              <Button className="rounded-lg bg-neutral-200 py-5 text-base hover:bg-neutral-50">
                 Start building
               </Button>
             </div>
@@ -294,7 +294,7 @@ const HeroSection = () => {
       </motion.div>
 
       <motion.div
-        className="relative z-10 mt-24 overflow-hidden rounded-lg"
+        className="relative z-10 mt-24"
         initial={{ opacity: 0, filter: "blur(4px)", z: -10, y: 100 }}
         animate={{
           opacity: 1,
@@ -306,7 +306,7 @@ const HeroSection = () => {
       >
         <div className="absolute inset-0 rounded-sm bg-gradient-to-r from-red-300 via-gray-800 to-blue-300 blur-2xl"></div>
         <Image
-          src={image || "/placeholder.svg"}
+          src={image}
           alt="Resume preview"
           width={600}
           height={420}
@@ -320,7 +320,7 @@ const HeroSection = () => {
 const ProductFor = () => {
   return (
     <div className="flex max-w-5xl flex-col items-center p-3">
-      <div className="grid grid-cols-1 pr-0 md:grid-cols-[60%_40%] md:pr-32">
+      <div className="grid grid-cols-[60%_50%] pr-32">
         <h2 className="text-5xl font-bold tracking-tighter text-neutral-200">
           Made for Software Developers
         </h2>
@@ -360,7 +360,7 @@ const FeatureSection = forwardRef<HTMLElement>((props, ref) => {
   return (
     <section
       ref={ref}
-      className="flex min-h-screen w-full flex-col items-center justify-start overflow-x-hidden bg-gradient-to-b from-neutral-800/40 via-neutral-950/90 to-black p-3"
+      className="flex min-h-screen w-full flex-col items-center justify-start bg-gradient-to-b from-neutral-800/40 via-neutral-950/90 to-black p-3"
     >
       <div className="w-full max-w-5xl space-y-6 px-2 pt-20">
         <div className="flex items-center space-x-2">
@@ -396,7 +396,7 @@ const FeatureSection = forwardRef<HTMLElement>((props, ref) => {
 
           <div className="flex justify-center lg:justify-end">
             <Image
-              src={editor || "/placeholder.svg"}
+              src={editor}
               alt="Resume Editor Interface"
               width={800}
               className="h-auto max-w-full rounded-lg shadow-2xl"
@@ -437,7 +437,7 @@ const ProcessSection = forwardRef<HTMLElement>((props, ref) => {
   return (
     <section
       ref={ref}
-      className="flex min-h-screen w-full flex-col items-center justify-start overflow-x-hidden bg-neutral-950 p-3"
+      className="flex min-h-screen w-full flex-col items-center justify-start bg-neutral-950 p-3"
     >
       <div className="w-full max-w-5xl space-y-6 px-2 pt-20">
         <div className="flex items-center space-x-2">
@@ -447,7 +447,7 @@ const ProcessSection = forwardRef<HTMLElement>((props, ref) => {
           </span>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-[50%_50%]">
+        <div className="grid grid-cols-[50%_50%]">
           <div className="flex max-w-lg flex-col space-y-6">
             <h2 className="text-4xl font-bold tracking-tighter text-neutral-200">
               Learn how easy it is to build your resume with ResumeSMITH
@@ -488,10 +488,10 @@ const ProcessSection = forwardRef<HTMLElement>((props, ref) => {
             </motion.div>
           </div>
 
-          {/* <Image src={editor || "/placeholder.svg"} alt={""} width={"800"} unoptimized /> */}
+          {/* <Image src={editor} alt={""} width={"800"} unoptimized /> */}
           {selectedView == 0 ? (
             <motion.div
-              initial={{ opacity: 0, x: -50, filter: "blur(15px)" }}
+              initial={{ opacity: 0, x: 300, filter: "blur(15px)" }}
               whileInView={{ opacity: 1, x: 0, filter: "blur(0px)" }}
               transition={{
                 duration: 2.0,
@@ -504,7 +504,7 @@ const ProcessSection = forwardRef<HTMLElement>((props, ref) => {
               <div className="relative h-full w-full rounded-xl border border-neutral-800 bg-neutral-700/10 py-6">
                 <div className="flex flex-col space-y-2 px-16">
                   <Image
-                    src={ClerkLogo || "/placeholder.svg"}
+                    src={ClerkLogo}
                     alt="Clerk Logo"
                     className="h-8 w-8 rounded-md bg-neutral-900 p-1"
                   />
@@ -524,7 +524,7 @@ const ProcessSection = forwardRef<HTMLElement>((props, ref) => {
                     whileHover={{ scale: 1.09 }}
                   >
                     <Image
-                      src={ClerkAuthSignInInterface || "/placeholder.svg"}
+                      src={ClerkAuthSignInInterface}
                       alt="Clerk Auth Interface"
                       className="h-auto w-full rounded-xl object-contain"
                     />
@@ -580,7 +580,8 @@ const ProcessSection = forwardRef<HTMLElement>((props, ref) => {
                           <Button
                             variant="outline"
                             type="button"
-                            className="h-5 w-fit border-neutral-600 bg-transparent text-neutral-200 hover:bg-neutral-900 hover:text-neutral-100"
+                            className="h-5 w-fit hover:bg-black"
+                            // TODO: Block for non-premium users
                           >
                             <WandSparklesIcon className="size-1" />
                             <p className="text-[8px]">Smart fill (AI)</p>
@@ -621,7 +622,8 @@ const ProcessSection = forwardRef<HTMLElement>((props, ref) => {
                           <Button
                             variant="outline"
                             type="button"
-                            className="h-5 w-fit border-neutral-600 bg-transparent text-neutral-200 hover:bg-neutral-900 hover:text-neutral-100"
+                            className="h-5 w-fit hover:bg-black"
+                            // TODO: Block for non-premium users
                           >
                             <WandSparklesIcon className="size-1" />
                             <p className="text-[8px]">Smart fill (AI)</p>
@@ -655,7 +657,7 @@ const ProcessSection = forwardRef<HTMLElement>((props, ref) => {
                     <motion.div
                       initial={{ y: 0 }}
                       className="z-50 -mt-32 ml-16 h-52 max-w-full rounded-xl border-2 border-neutral-950 bg-gradient-to-r from-neutral-800 via-neutral-900 to-neutral-900 shadow-2xl"
-                      whileHover={{ y: -20 }}
+                      whileHover={{ y: -[30] }}
                       transition={{ ease: "easeInOut", duration: 0.5 }}
                     >
                       <div className="flex flex-col space-y-1 p-4 font-[550]">
@@ -713,7 +715,7 @@ const ProcessSection = forwardRef<HTMLElement>((props, ref) => {
                     transition={{ duration: 0.3 }}
                   >
                     <Image
-                      src={ClerkAuthSignInInterface || "/placeholder.svg"}
+                      src={ClerkAuthSignInInterface}
                       alt="Clerk Auth Interface"
                       className="h-auto w-full rounded-2xl object-contain"
                     />
@@ -734,11 +736,11 @@ const HowItWorksSection = forwardRef<HTMLElement>((props, ref) => {
   return (
     <section
       ref={ref}
-      className="flex min-h-screen w-full flex-col items-center overflow-x-hidden bg-gradient-to-b from-neutral-800/40 via-neutral-950/90 to-black p-3"
+      className="flex min-h-screen w-full flex-col items-center bg-gradient-to-b from-neutral-800/40 via-neutral-950/90 to-black p-3"
     >
       <div className="w-full max-w-5xl px-2 pt-20">
         <div className="flex flex-col items-center justify-center space-x-2 space-y-10">
-          <div className="flex items-center justify-between gap-x-6 rounded-2xl border border-neutral-800 p-1 px-5">
+          <div className="flex items-center justify-between gap-x-6 rounded-2xl border p-1 px-5">
             <span className="h-3 w-3 animate-pulse rounded-full bg-blue-400" />
             <div className="flex items-center gap-2">
               <Box className="h-4 w-4 text-blue-400" />
@@ -763,7 +765,7 @@ const HowItWorksSection = forwardRef<HTMLElement>((props, ref) => {
             </div>
           </div>
 
-          <div className="flex flex-col gap-3 md:flex-row">
+          <div className="flex gap-x-3">
             <div className="relative h-full w-full rounded-xl border border-neutral-800 bg-neutral-700/10 p-3 pt-7">
               {/* First Image */}
               <motion.div
@@ -774,7 +776,7 @@ const HowItWorksSection = forwardRef<HTMLElement>((props, ref) => {
               >
                 <div className="relative h-[360px] w-[280px]">
                   <Image
-                    src={blankPage || "/placeholder.svg"}
+                    src={blankPage}
                     alt="Blank Page"
                     className="z-20 h-full w-full rounded-lg object-contain"
                   />
@@ -795,7 +797,7 @@ const HowItWorksSection = forwardRef<HTMLElement>((props, ref) => {
               >
                 <div className="relative h-[360px] w-[280px]">
                   <Image
-                    src={landinpage1 || "/placeholder.svg"}
+                    src={landinpage1}
                     alt="Landing Page"
                     className="z-20 h-full w-full rounded-lg object-contain"
                   />
@@ -816,7 +818,7 @@ const HowItWorksSection = forwardRef<HTMLElement>((props, ref) => {
               >
                 <div className="relative h-[360px] w-[280px]">
                   <Image
-                    src={landingPage2 || "/placeholder.svg"}
+                    src={landingPage2}
                     alt="Final Resume"
                     className="z-20 h-full w-full rounded-lg object-contain"
                   />

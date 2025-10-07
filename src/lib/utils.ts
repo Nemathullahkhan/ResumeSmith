@@ -56,6 +56,8 @@ export function mapToResumeValues(data: ResumeServerData): ResumeValues {
     })),
     skillSet: data.skillSet.map((skill)=>({
       languages: skill.languages || undefined,
+      databases: skill.databases || undefined,
+      deployment: skill.deployment || undefined,
       frameworks: skill.frameworks || undefined,
       tools: skill.tools || undefined,
       libraries: skill.libraries || undefined,

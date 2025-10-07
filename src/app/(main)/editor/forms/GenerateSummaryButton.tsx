@@ -8,7 +8,6 @@ import { generateSummary } from "./actions";
 interface GenerateSummaryButtonProps{
     resumeData: ResumeValues;
     onSummaryGenerated: (summary:string)=> void;
-
 }
 
 export default function GenerateSummaryButton({resumeData,onSummaryGenerated}:GenerateSummaryButtonProps){

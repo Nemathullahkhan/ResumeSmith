@@ -2,7 +2,7 @@
 
 ResumeSMITH is a full-stack web application that helps users create professional resumes using AI-assisted features and modern web technologies. It offers a comprehensive solution for building, customizing, and exporting professional-looking resumes with an intuitive drag-and-drop interface.
 
-## 🚀 Features
+## 🚀 Featuresnpm
 
 - **AI-Powered Content Generation**
   - Auto-generate professional summaries, work experiences, and project descriptions using OpenAI

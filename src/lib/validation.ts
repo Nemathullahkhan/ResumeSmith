@@ -53,22 +53,27 @@ export const workExperienceSchema = z.object({
 
 export type WorkExperienceValues = z.infer<typeof workExperienceSchema>;
 
-export type WorkExperience = NonNullable<z.infer<typeof workExperienceSchema>["workExperiences"]>[number]
+export type WorkExperience = NonNullable<
+  z.infer<typeof workExperienceSchema>["workExperiences"]
+>[number];
 
 export const projectSchema = z.object({
-  projects:z.array(
-    z.object({
-      projectName: optionalString,
-      link:optionalString,
-      techStack: optionalString,
-      description: optionalString,
-    }),
-  )
-  .optional(),
+  projects: z
+    .array(
+      z.object({
+        projectName: optionalString,
+        link: optionalString,
+        techStack: optionalString,
+        description: optionalString,
+      }),
+    )
+    .optional(),
 });
 
 export type ProjectValues = z.infer<typeof projectSchema>;
-export type Projects = NonNullable<z.infer<typeof projectSchema>["projects"]>[number]
+export type Projects = NonNullable<
+  z.infer<typeof projectSchema>["projects"]
+>[number];
 
 export const educationSchema = z.object({
   educations: z
@@ -86,76 +91,81 @@ export const educationSchema = z.object({
 
 export type EducationValues = z.infer<typeof educationSchema>;
 
-
 export const skillSchema = z.object({
-  skillSet:z.array(
-    z.object({
-      languages: optionalString,
-      frameworks: optionalString,
-      tools: optionalString,
-      libraries: optionalString,
-    })
-  )
-  .optional(),
-})
+  skillSet: z
+    .array(
+      z.object({
+        languages: optionalString,
+        databases: optionalString,
+        deployment: optionalString,
+        frameworks: optionalString,
+        tools: optionalString,
+        libraries: optionalString,
+      }),
+    )
+    .optional(),
+});
 
 export type SkillSetValues = z.infer<typeof skillSchema>;
 
-export type SkillSet = NonNullable<z.infer<typeof skillSchema>["skillSet"]>[number]
+export type SkillSet = NonNullable<
+  z.infer<typeof skillSchema>["skillSet"]
+>[number];
 
 export const customSchema = z.object({
-  custom:z.array(
-    z.object({
-      heading: optionalString,
-      description: optionalString,
-      link: optionalString
-    })
-  )
-  .optional(),
-})
+  custom: z
+    .array(
+      z.object({
+        heading: optionalString,
+        description: optionalString,
+        link: optionalString,
+      }),
+    )
+    .optional(),
+});
 
 export type customValues = z.infer<typeof customSchema>;
 
-export type customSet = NonNullable<z.infer<typeof customSchema>["custom"]>[number]
+export type customSet = NonNullable<
+  z.infer<typeof customSchema>["custom"]
+>[number];
 
 export const courseSchema = z.object({
-  courses:z.array(
-    z.object({
-      course : optionalString,
-      learningPlatform : optionalString,
-      courseLink : optionalString,
-      description: optionalString,
-    })
-  )
-  .optional()
-})
+  courses: z
+    .array(
+      z.object({
+        course: optionalString,
+        learningPlatform: optionalString,
+        courseLink: optionalString,
+        description: optionalString,
+      }),
+    )
+    .optional(),
+});
 
 export type courseValues = z.infer<typeof courseSchema>;
 
-export type courseSet = NonNullable<z.infer<typeof courseSchema>["courses"]>[number]
-
-
+export type courseSet = NonNullable<
+  z.infer<typeof courseSchema>["courses"]
+>[number];
 
 export const codingProfileSchema = z.object({
-  codingProfiles:z.array(
-    z.object({
-      codingProfile : optionalString,
-      codingProfileLink : optionalString,
-      description: optionalString,
-    }),
-  )
-  .optional()
-})
+  codingProfiles: z
+    .array(
+      z.object({
+        codingProfile: optionalString,
+        codingProfileLink: optionalString,
+        description: optionalString,
+      }),
+    )
+    .optional(),
+});
 
 export type codingProfileValues = z.infer<typeof codingProfileSchema>;
 
-export type codingProfiles = NonNullable<z.infer<typeof codingProfileSchema>["codingProfiles"]>[number]
-
-
-
-
-
-
+export type codingProfiles = NonNullable<
+  z.infer<typeof codingProfileSchema>["codingProfiles"]
+>[number];
 
 export const summarySchema = z.object({
   summary: optionalString,
@@ -192,7 +202,9 @@ export const generateWorkExperienceSchema = z.object({
     .min(20, "Must be atleast 20 characters"),
 });
 
-export type GenerateWorkExperienceInput = z.infer<typeof generateWorkExperienceSchema>;
+export type GenerateWorkExperienceInput = z.infer<
+  typeof generateWorkExperienceSchema
+>;
 
 export const generateSummarySchema = z.object({
   jobTitle: optionalString,
@@ -200,7 +212,6 @@ export const generateSummarySchema = z.object({
   ...educationSchema.shape,
   ...skillSchema.shape,
   ...customSchema.shape,
-  
 });
 
 export const generateProjectSchema = z.object({

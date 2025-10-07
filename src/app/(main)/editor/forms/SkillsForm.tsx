@@ -1,5 +1,3 @@
-
-
 import {
   Form,
   FormControl,
@@ -22,7 +20,7 @@ export default function SkillsTab({
   setResumeData,
 }: EditorFormProps) {
   const [showButton, setShowButton] = useState(
-    resumeData.skillSet && resumeData.skillSet.length === 0 ? 0 : 1
+    resumeData.skillSet && resumeData.skillSet.length === 0 ? 0 : 1,
   );
   const form = useForm<SkillSetValues>({
     resolver: zodResolver(skillSchema),
@@ -106,21 +104,23 @@ interface SkillItemProps {
 function SkillItem({ form, index, remove }: SkillItemProps) {
   return (
     <div className={cn("space-y-3 rounded-md border bg-background p-3")}>
-      <div className="flex justify-between items-center gap-2">
-        <span className="text-[15px] font-semibold tracking-tight">Technical Skills</span>
+      <div className="flex items-center justify-between gap-2">
+        <span className="text-[15px] font-semibold tracking-tight">
+          Technical Skills
+        </span>
         <Button
-        className="w-16 text-xs"
-        variant="destructive"
-        type="button"
-        onClick={() => {
-          remove(index);
-        }}
-      >
-        Remove
-      </Button>
+          className="w-16 text-xs"
+          variant="destructive"
+          type="button"
+          onClick={() => {
+            remove(index);
+          }}
+        >
+          Remove
+        </Button>
       </div>
       <hr />
-      
+
       <FormField
         control={form.control}
         name={`skillSet.${index}.languages`}
@@ -129,6 +129,19 @@ function SkillItem({ form, index, remove }: SkillItemProps) {
             <FormLabel>Languages</FormLabel>
             <FormControl>
               <Input placeholder="e.g., Python, JavaScript" {...field} />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+      <FormField
+        control={form.control}
+        name={`skillSet.${index}.databases`}
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Databases</FormLabel>
+            <FormControl>
+              <Input placeholder="e.g., MongoDB, SQL" {...field} />
             </FormControl>
             <FormMessage />
           </FormItem>
@@ -173,7 +186,19 @@ function SkillItem({ form, index, remove }: SkillItemProps) {
           </FormItem>
         )}
       />
-      
+      <FormField
+        control={form.control}
+        name={`skillSet.${index}.deployment`}
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Deployment Platforms</FormLabel>
+            <FormControl>
+              <Input placeholder="e.g. AWS, Vercel" {...field} />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
     </div>
   );
 }
