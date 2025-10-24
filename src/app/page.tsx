@@ -1,7 +1,7 @@
 "use client";
 
 import type React from "react";
-import { type RefObject, useRef, forwardRef, useState } from "react";
+import { type RefObject, useRef, forwardRef, useState, useEffect } from "react";
 import { motion, easeInOut } from "framer-motion";
 import Image from "next/image";
 import image from "@/assets/jakes-resume-1.png";
@@ -24,6 +24,8 @@ import blankPage from "@/assets/blankpage-1.png";
 import landinpage1 from "@/assets/landing page -1-1.png";
 import landingPage2 from "@/assets/landing page2-1.png";
 import { Button } from "@/components/ui/button";
+import { useAuth } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
 
 const Page = () => {
   const featureRef = useRef<HTMLElement>(null);
@@ -31,12 +33,21 @@ const Page = () => {
   const howItWorksRef = useRef<HTMLElement>(null);
   const contactRef = useRef<HTMLElement>(null);
 
+  const { isSignedIn } = useAuth();
+  const router = useRouter();
+
   // Function to handle smooth scrolling
   const scrollToSection = (ref: React.RefObject<HTMLElement>) => {
     if (ref.current) {
       ref.current.scrollIntoView({ behavior: "smooth" });
     }
   };
+
+  useEffect(() => {
+    if (isSignedIn) {
+      router.push("/resumes"); // Redirect to your desired page
+    }
+  }, [isSignedIn, router]);
 
   return (
     <div className="flex min-h-screen w-full flex-col items-center space-y-32 overflow-x-hidden bg-black text-neutral-100">

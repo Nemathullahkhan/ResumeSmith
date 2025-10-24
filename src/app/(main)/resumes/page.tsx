@@ -1,73 +1,7 @@
-// import { Button } from "@/components/ui/button";
-// import prisma from "@/lib/prisma";
-// import { resumeDataInclude } from "@/lib/types";
-// import { auth } from "@clerk/nextjs/server";
-// import { PlusSquare } from "lucide-react";
-// import { Metadata } from "next";
-// import Link from "next/link";
-// import React from "react";
-// import ResumeItem from "./ResumeItem";
-
-// export const metadata: Metadata = {
-//   title: "Your Resumes ",
-// };
-
-// export default async function Page() {
-//   const { userId } = await auth();
-//   if (!userId) {
-//     return null;
-//   }
-//   const [resumes, totalCount] = await Promise.all([
-//     prisma.resume.findMany({
-//       where: {
-//         userId,
-//       },
-//       orderBy: {
-//         updatedAt: "desc",
-//       },
-//       include: resumeDataInclude,
-//     }),
-//     prisma.resume.count({
-//       where: {
-//         userId,
-//       },
-//     }),
-//   ]);
-
-//   return (
-//     <div className="flex w-full flex-col items-center justify-center space-y-4">
-//       <div className="space-y-3 max-w-6xl w-full ">
-//         <div className="flex items-center justify-between p-3 pt-5 ">
-//           <div className="space-y-2">
-//             <h1 className="text-3xl font-bold tracking-tight">Your resumes</h1>
-//             <span className="px-4 dark:text-neutral-300">
-//               Total :{" "}
-//               <span className="font-semibold dark:text-neutral-100">
-//                 {totalCount}
-//               </span>
-//             </span>
-//           </div>
-//           <Link href={"/editor"}>
-//             <Button className="mx-auto flex w-fit gap-2">
-//               <PlusSquare className="size-5" />
-//               New Resume
-//             </Button>
-//           </Link>
-//         </div>
-//         <div className="relative gap-3 space-x-2 space-y-2 sm:grid md:grid-cols-3 lg:grid-cols-4">
-//           {resumes.map((resume) => (
-//             <ResumeItem key={resume.id} resume={resume} />
-//           ))}
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
 import { Button } from "@/components/ui/button";
 import prisma from "@/lib/prisma";
 import { resumeDataInclude } from "@/lib/types";
-import { auth } from "@clerk/nextjs/server";
+import { auth, currentUser } from "@clerk/nextjs/server";
 import { PlusSquare, Map, Compass, Book, Download } from "lucide-react";
 import { Metadata } from "next";
 import Link from "next/link";
@@ -75,11 +9,13 @@ import React from "react";
 import ResumeItem from "./ResumeItem";
 import Image from "next/image";
 import gptLogo from "../../../assets/gptLogo.png";
+import { useRouter } from "next/navigation";
 export const metadata: Metadata = {
   title: "Your Resumes ",
 };
 
 export default async function Page() {
+  const user = await currentUser();
   const { userId } = await auth();
   if (!userId) {
     return null;
@@ -165,10 +101,15 @@ export default async function Page() {
         <div className="w-full max-w-6xl space-y-3 py-8">
           <div className="flex items-center justify-between p-3 pt-5">
             <div className="space-y-2">
-              <h1 className="text-3xl font-bold tracking-tight">
-                Your resumes
-              </h1>
-              <span className="px-4 dark:text-neutral-300">
+              <div>
+                <h1 className="text-4xl font-bold tracking-tight">
+                  Welcome, {user?.firstName}
+                </h1>
+                <h1 className="px-4 text-2xl font-bold tracking-tight dark:text-neutral-300">
+                  Your resumes
+                </h1>
+              </div>
+              <span className="px-8 dark:text-neutral-300">
                 Total :{" "}
                 <span className="font-semibold dark:text-neutral-100">
                   {totalCount}
